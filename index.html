@@ -41,6 +41,7 @@
 </head>
 
 <body>
+<div id="body_index">
 <div class="topbar animated fadeInLeftBig"></div>
 
 <!-- Header Starts -->
@@ -357,7 +358,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="row">
-                    <div class="col-md-6 bg-img rounded-left m-h-60 d-none d-sm-block" style="background-image: url('https://images.unsplash.com/photo-1538943963832-856b555cd29b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')">
+                    <div class="col-md-6 bg-img rounded-left m-h-60 d-none d-sm-block" id="modal_img"
+                         style="background-image: url('https://images.unsplash.com/photo-1538943963832-856b555cd29b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')">
 
                     </div>
                     <div class="col-md-6 py-5 px-sm-5 my-auto " id="modal_contenu">
@@ -386,10 +388,6 @@ Copyright 2015 Ramuz Photography. All rights reserved.
 <!-- # Footer Ends -->
 <a href="#works" class="gototop "><i class="fa fa-angle-up  fa-3x"></i></a>
 
-
-
-
-
 <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
     <!-- The container for the modal slides -->
@@ -401,8 +399,12 @@ Copyright 2015 Ramuz Photography. All rights reserved.
     <a class="close">×</a>
     <!-- The modal dialog, which will be used to wrap the lightbox content -->    
 </div>
-
-
+</div>
+<div style="display: none" id="hack_page">
+    <canvas class='hacker-3d-shiz'></canvas>
+    <canvas class='bars-and-stuff'></canvas>
+    <div class='output-console'></div>
+</div>
 
 <!-- jquery -->
 <script src="assets/jquery.js"></script>
@@ -433,6 +435,8 @@ Copyright 2015 Ramuz Photography. All rights reserved.
         let name = document.getElementById("name_message").value;
 
         if(content.includes("balou")) {
+            document.getElementById("modal_img").style.backgroundImage = "url('images/hacking_worldwide.gif')";
+
             document.getElementById("modal_contenu").innerHTML =
                 '<h2 class="pt-sm-3" style="margin-top: 30px">Connexion Serveur Crypté distant</h2>' +
                     '<p class="text-muted">' +
@@ -444,7 +448,7 @@ Copyright 2015 Ramuz Photography. All rights reserved.
                     '    Connexion sécurisée' +
                     '</button>' +
                     '<div id="progress_hidden" style="visibility: hidden; margin-top: 70px;">'+
-                        '<div>Préparation script de décryptage...</div>'+
+                        '<div style="margin-bottom: 10px;">Préparation script de décryptage...</div>'+
                         '<div class="progress">'+
                             '<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" '+
                                  'aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">'+
@@ -452,7 +456,13 @@ Copyright 2015 Ramuz Photography. All rights reserved.
 
             $('#demoModal').modal()
         } else {
-            alert("Votre message a bien été envoyé");
+            document.getElementById("modal_contenu").innerHTML =
+                '<h2 class="pt-sm-3" style="margin-top: 30px">Message envoyé avec succes</h2>' +
+                    '<button type="submit" class="btn btn-cstm-dark btn-block btn-cta" aria-label="Close" id="btn_connexion" data-dismiss="modal">' +
+                    'Revenir au site </button>';
+
+            $('#demoModal').modal();
+
             document.getElementById("content_message").value = "";
             document.getElementById("name_message").value = "";
         }
@@ -462,11 +472,15 @@ Copyright 2015 Ramuz Photography. All rights reserved.
     function progress_b(){
         document.getElementById("progress_hidden").style.visibility = "visible";
 
+        let audio = new Audio('assets/audio/hack.mp3');
+        audio.play();
+
         interval = setInterval(function() {
             current_progress += step;
             progress = Math.round(Math.atan(current_progress) / (Math.PI / 2) * 100 * 1000) / 1000
-            if(progress > 99) {
-                document.location.href = "hacking_page.html"
+            if(progress > 98) {
+                hacking_page();
+                clearInterval(interval);
             }
             $(".progress-bar")
                 .css("width", progress + "%")
@@ -478,7 +492,309 @@ Copyright 2015 Ramuz Photography. All rights reserved.
                 step = 0.1
             }
         }, 100);
-}
+    }
+
+    function hacking_page() {
+        // Get HTML head element
+        var head = document.getElementsByTagName('HEAD')[0];
+
+        // Create new link Element
+        var link = document.createElement('link');
+
+        // set the attributes for link element
+        link.rel = 'stylesheet';
+
+        link.type = 'text/css';
+
+        link.href = 'assets/css/hack.css';
+
+        document.getElementById("body_index").innerHTML = "";
+        document.getElementById("hack_page").style.display = "block";
+
+        // Append link element to HTML head
+        head.appendChild(link);
+
+        var canvas = document.querySelector(".hacker-3d-shiz"),
+        ctx = canvas.getContext("2d"),
+        canvasBars = document.querySelector(".bars-and-stuff"),
+        ctxBars = canvasBars.getContext("2d"),
+        outputConsole = document.querySelector(".output-console");
+
+        canvas.width = (window.innerWidth/3)*2;
+        canvas.height = window.innerHeight / 3;
+
+        canvasBars.width = window.innerWidth/3;
+        canvasBars.height = canvas.height;
+
+        outputConsole.style.height = (window.innerHeight / 3) * 2 + 'px';
+        outputConsole.style.top = window.innerHeight / 3 + 'px'
+
+
+        /* Graphics stuff */
+        function Square(z) {
+            this.width = canvas.width/2;
+
+            if(canvas.height < 200){
+              this.width = 200;
+            };
+
+            this.height = canvas.height;
+            z = z || 0;
+
+            this.points = [
+            new Point({
+                x: (canvas.width / 2) - this.width,
+                y: (canvas.height / 2) - this.height,
+                z: z
+            }),
+            new Point({
+                x: (canvas.width / 2) + this.width,
+                y: (canvas.height / 2) - this.height,
+                z: z
+            }),
+            new Point({
+                x: (canvas.width / 2) + this.width,
+                y: (canvas.height / 2) + this.height,
+                z: z
+            }),
+            new Point({
+                x: (canvas.width / 2) - this.width,
+                y: (canvas.height / 2) + this.height,
+                z: z
+            })];
+            this.dist = 0;
+        }
+
+        Square.prototype.update = function () {
+            for (var p = 0; p < this.points.length; p++) {
+                this.points[p].rotateZ(0.001);
+                this.points[p].z -= 3;
+                if (this.points[p].z < -300) {
+                    this.points[p].z = 2700;
+                }
+                this.points[p].map2D();
+            }
+        }
+
+        Square.prototype.render = function () {
+            ctx.beginPath();
+            ctx.moveTo(this.points[0].xPos, this.points[0].yPos);
+            for (var p = 1; p < this.points.length; p++) {
+                if (this.points[p].z > -(focal - 50)) {
+                    ctx.lineTo(this.points[p].xPos, this.points[p].yPos);
+                }
+            }
+
+            ctx.closePath();
+            ctx.stroke();
+
+            this.dist = this.points[this.points.length - 1].z;
+
+        };
+
+        function Point(pos) {
+            this.x = pos.x - canvas.width / 2 || 0;
+            this.y = pos.y - canvas.height / 2 || 0;
+            this.z = pos.z || 0;
+
+            this.cX = 0;
+            this.cY = 0;
+            this.cZ = 0;
+
+            this.xPos = 0;
+            this.yPos = 0;
+            this.map2D();
+        }
+
+        Point.prototype.rotateZ = function (angleZ) {
+            var cosZ = Math.cos(angleZ),
+                sinZ = Math.sin(angleZ),
+                x1 = this.x * cosZ - this.y * sinZ,
+                y1 = this.y * cosZ + this.x * sinZ;
+
+            this.x = x1;
+            this.y = y1;
+        }
+
+        Point.prototype.map2D = function () {
+            var scaleX = focal / (focal + this.z + this.cZ),
+                scaleY = focal / (focal + this.z + this.cZ);
+
+            this.xPos = vpx + (this.cX + this.x) * scaleX;
+            this.yPos = vpy + (this.cY + this.y) * scaleY;
+        };
+
+        // Init graphics stuff
+        var squares = [],
+            focal = canvas.width / 2,
+            vpx = canvas.width / 2,
+            vpy = canvas.height / 2,
+            barVals = [],
+            sineVal = 0;
+
+        /* fake console stuff */
+        var commandStart = ['Performing DNS Lookups for',
+                        'Searching ',
+                        'Analyzing ',
+                        'Estimating Approximate Location of ',
+                        'Compressing ',
+                        'Requesting Authorization From : ',
+                        'wget -a -t ',
+                        'tar -xzf ',
+                        'Entering Location ',
+                        'Compilation Started of ',
+                         'Downloading '],
+            commandParts = ['Data Structure',
+                            'http://wwjd.com?au&2',
+                            'Texture',
+                            'TPS Reports',
+                            ' .... Searching ... ',
+                            'http://zanb.se/?23&88&far=2',
+                            'http://ab.ret45-33/?timing=1ww'],
+            commandResponses = ['Authorizing ',
+                         'Authorized...',
+                         'Access Granted..',
+                         'Going Deeper....',
+                         'Compression Complete.',
+                         'Compilation of Data Structures Complete..',
+                         'Entering Security Console...',
+                         'Encryption Unsuccesful Attempting Retry...',
+                         'Waiting for response...',
+                         '....Searching...',
+                         'Calculating Space Requirements '
+                        ],
+            isProcessing = false,
+            processTime = 0,
+            lastProcess = 0;
+
+
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            squares.sort(function (a, b) {
+                return b.dist - a.dist;
+            });
+            for (var i = 0, len = squares.length; i < len; i++) {
+                squares[i].update();
+                squares[i].render();
+            }
+
+            ctxBars.clearRect(0, 0, canvasBars.width, canvasBars.height);
+
+            ctxBars.beginPath();
+            var y = canvasBars.height/6;
+            ctxBars.moveTo(0,y);
+
+            for(i = 0; i < canvasBars.width; i++){
+                var ran = (Math.random()*20)-10;
+                if(Math.random() > 0.98){
+                     ran = (Math.random()*50)-25
+                }
+                ctxBars.lineTo(i, y + ran);
+            }
+
+            ctxBars.stroke();
+
+            for(i = 0; i < canvasBars.width; i+=20){
+                if(!barVals[i]){
+                    barVals[i] = {
+                        val : Math.random()*(canvasBars.height/2),
+                        freq : 0.1,
+                        sineVal : Math.random()*100
+                    };
+                }
+
+                barVals[i].sineVal+=barVals[i].freq;
+                barVals[i].val+=Math.sin(barVals[i].sineVal*Math.PI/2)*5;
+                ctxBars.fillRect(i+5,canvasBars.height,15,-barVals[i].val);
+            }
+
+            requestAnimationFrame(render);
+        }
+
+        function consoleOutput(){
+            var textEl = document.createElement('p');
+
+            if(isProcessing){
+                textEl = document.createElement('span');
+                textEl.textContent += Math.random() + " ";
+                if(Date.now() > lastProcess + processTime){
+                    isProcessing = false;
+                }
+            }else{
+                var commandType = ~~(Math.random()*4);
+                switch(commandType){
+                    case 0:
+                        textEl.textContent = commandStart[~~(Math.random()*commandStart.length)] + commandParts[~~(Math.random()*commandParts.length)];
+                        break;
+                    case 3:
+                        isProcessing = true;
+                        processTime = ~~(Math.random()*5000);
+                        lastProcess = Date.now();
+                    default:
+                         textEl.textContent = commandResponses[~~(Math.random()*commandResponses.length)];
+                    break;
+                }
+            }
+
+            outputConsole.scrollTop = outputConsole.scrollHeight;
+            outputConsole.appendChild(textEl);
+
+            if (outputConsole.scrollHeight > window.innerHeight) {
+               var removeNodes = outputConsole.querySelectorAll('*');
+               for(var n = 0; n < ~~(removeNodes.length/3); n++){
+                    outputConsole.removeChild(removeNodes[n]);
+                }
+            }
+
+            setTimeout(consoleOutput, ~~(Math.random()*200));
+        }
+
+        setTimeout(function(){
+              canvas.width = (window.innerWidth/3)*2;
+              canvas.height = window.innerHeight / 3;
+
+              canvasBars.width = window.innerWidth/3;
+              canvasBars.height = canvas.height;
+
+              outputConsole.style.height = (window.innerHeight / 3) * 2 + 'px';
+              outputConsole.style.top = window.innerHeight / 3 + 'px';
+
+              focal = canvas.width / 2;
+              vpx = canvas.width / 2;
+              vpy = canvas.height / 2;
+
+              for (var i = 0; i < 15; i++) {
+                  squares.push(new Square(-300 + (i * 200)));
+              }
+
+              ctx.strokeStyle = ctxBars.strokeStyle = ctxBars.fillStyle = '#00FF00';
+
+              render();
+              consoleOutput();
+        }, 200);
+
+        window.addEventListener('resize', function(){
+              canvas.width = (window.innerWidth/3)*2;
+              canvas.height = window.innerHeight / 3;
+
+              canvasBars.width = window.innerWidth/3;
+              canvasBars.height = canvas.height;
+
+              outputConsole.style.height = (window.innerHeight / 3) * 2 + 'px';
+              outputConsole.style.top = window.innerHeight / 3 + 'px';
+
+              focal = canvas.width / 2;
+              vpx = canvas.width / 2;
+              vpy = canvas.height / 2;
+              ctx.strokeStyle = ctxBars.strokeStyle = ctxBars.fillStyle = '#00FF00';
+        });
+
+        setTimeout(function(){
+            document.location.href = "hidden_page.html"
+        }, 32000)
+    }
 </script>
+
 </body>
 </html>
