@@ -1,6 +1,6 @@
 body {	color:#666;	font:300 15px/15px Roboto,Arial,Helvetica;background-color:#fff;-webkit-font-smoothing:antialiased;}
 
-a{color:#00a9c6; text-decoration:none;}
+a{color:#BEAC95; text-decoration:none;}
 a:hover{color:#666;}
 .btn,a,.btn:hover,a:hover {
 -webkit-transition: all 0.3s ease-in-out;
@@ -26,15 +26,15 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 .btn:hover,.btn:active{color: #fff;}
 .btn-default{color: #ccc;border: 1px solid #aaa;}
 .btn-default:hover,.btn-default:active{background: rgba(0,0,0,0.8);}
-.btn-primary{color: #fff;background:#00a9c6;width: 100%;outline: none;}
-.btn-primary:hover,.btn-primary:active,.btn-primary:focus{background:#1BC0DC;box-shadow: none;}
+.btn-primary{color: #fff;background:#BEAC95;width: 100%;outline: none;}
+.btn-primary:hover,.btn-primary:active,.btn-primary:focus{background:#BEAC95;box-shadow: none;}
 
 .topbar {background:url(../images/lines.png);	height:5px;position: fixed;top: 0;width: 100%;z-index: 1000;}
 .navbar-nav > li > a{font-size: 1em;line-height: 3.6em;}
 .navbar-fixed-top{top: 5px;}
 .navbar-inverse{background: #111;}
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{background: none;color: #21abca;}
-
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{background: none;color: #BEAC95;}
+.navbar {background-color: white}
 #head,.carousel{margin-top: 0;}
 
 #home{padding-top: 6em;}
@@ -48,7 +48,7 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 
 /*about*/
 .about.spacer{padding-left: 4em; padding-right: 4em;}
-.process ul li{width: 10em;height: 10em;border: 1px solid #CEEBF0;padding: 0;border-radius: 50%;margin: 0 1.25em;line-height: 13.5em;color: #21ABCA;}
+.process ul li{width: 10em;height: 10em;border: 1px solid #CEEBF0;padding: 0;border-radius: 50%;margin: 0 1.25em;line-height: 13.5em;color: #BEAC95;}
 .process ul li span{line-height: 2em;display: inline-block;font-weight: 300;}
 .process ul li span i{font-size: 3em;}
 .process ul li span b{display: block;font-size: 1em;font-weight: 300;}
@@ -60,7 +60,7 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 .testimonails img{margin-top: 5px;}
 .testimonails span{color: #888;}
 .testimonails span b{font-weight: 400;}
-.carousel-indicators li{border: 1px solid #2BB2E3;}
+.carousel-indicators li{border: 1px solid #BEAC95;}
 .carousel-indicators{bottom: 0;}
 
 /*works*/
@@ -74,11 +74,11 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 .team img{width: 100%;}
 .team b{font-size: 1.2em;display: block;}
 .team a i.fa{color: #fff; font-size: 2em;}
-.team a i.fa:hover{color: #21abca;}
+.team a i.fa:hover{color: #BEAC95;}
 
 
 .highlight-info{ background:url(../images/lab.jpg) center fixed; background-size: cover; color:#fff;}
-.highlight-info .overlay{background: rgba(33,171,202,0.5);}
+.highlight-info .overlay{background: #BEAC95;}
 .highlight-info h4{color: #fff;margin:0.5em 0 0 0;}
 /*about us*/
 
@@ -156,4 +156,8 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 	.grid.team div{margin: 0;padding: 0;}
 	figure.effect-chico figcaption {padding: 1.5em;}
 	.footer{margin-top: 2em;padding-bottom: 2em;}
+}
+
+@media (min-width: 767px) {
+	.navbar {height: 130px;}
 }
