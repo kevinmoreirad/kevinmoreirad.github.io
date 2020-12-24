@@ -38,6 +38,67 @@
 
 <link rel="stylesheet" href="assets/style.css">
 
+<style>
+    .backDoor
+    {
+      background-color: #333;
+      position:relative;
+      width:200px;
+      height:300px;
+
+      margin: 0 auto;
+      margin-top:50px;
+    }
+
+    .door_red
+    {
+      background-color: darkred;
+      position:absolute;
+      top:0px;
+      left:0px;
+      width:200px;
+      height:300px;
+
+      transform-origin: left;
+      /*Speed of the Door animation*/
+      transition: all 0.5s ease-in-out;
+    }
+
+    .door_blue
+    {
+      background-color: darkblue;
+      position:absolute;
+      top:0px;
+      left:0px;
+      width:200px;
+      height:300px;
+
+      transform-origin: left;
+      /*Speed of the Door animation*/
+      transition: all 0.5s ease-in-out;
+    }
+
+    .door_green
+    {
+      background-color: green;
+      position:absolute;
+      top:0px;
+      left:0px;
+      width:200px;
+      height:300px;
+
+      transform-origin: left;
+      /*Speed of the Door animation*/
+      transition: all 0.5s ease-in-out;
+    }
+
+    .doorOpen
+    {
+      /*prespectiv creates the door open effect*/
+      transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(-105deg);
+    }
+</style>
+
 </head>
 
 <body style="background-color: #211e1e; color: #149414">
@@ -72,19 +133,37 @@
 <div id="about"  class="container spacer about">
 <h2 class="text-center wowload fadeInUp">Photographie du monde</h2>
   <div class="row">
-    <img src="images/pays.png" width="100%">
+      <h2>Quelle est la prochaine porte ?</h2>
+      <div class="row">
+            <div class="col-lg-4">
+                <div class="backDoor">
+                    <div class="door_red">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="backDoor">
+                    <div class="door_blue">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="backDoor">
+                    <div class="door_green">
+                    </div>
+                </div>
+            </div>
+        </div>
   </div>
 </div>
 <!-- #Cirlce Ends -->
 
-<!--Contact Starts-->
 <div id="contact" class="spacer" style="background-color: #2b5329">
     <div class="container contactform center">
-    <h2 class="text-center  wowload fadeInUp">Quelle est la réponse?</h2>
+    <h2 class="text-center  wowload fadeInUp">Vous vous êtes trompé ?</h2>
       <div class="row wowload fadeInLeftBig">
           <div class="col-sm-6 col-sm-offset-3 col-xs-12">
-            <input type="text" placeholder="Réponse" id="name_message" style="background-color: #020c02; color: #00FF00; border-color: #062806">
-            <button class="btn btn-primary" onclick="check_response()" style="background-color: #211e1e; color: #9ccc9c"><i class="fa fa-paper-plane"></i> Essayer</button>
+            <button class="btn btn-primary" onclick="check_response()" style="background-color: #211e1e; color: #9ccc9c"><i class="fa fa-paper-plane"></i> Retour au début</button>
           </div>
       </div>
     </div>
@@ -158,14 +237,56 @@ Copyright 2015 Ramuz Secret Files. All rights reserved.
 <script src="assets/js/lunar.js"></script>
 
 <script>
-    function check_response() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
 
-        let name = document.getElementById("name_message").value.toLowerCase();
-        if(name === "nil") {
-            window.location.href = "hidden_page348789.html";
-        } else {
-            alert("Ce n'est pas la bonne réponse");
-        }
+
+
+
+    function check_response() {
+        window.location.href = "hidden_page6666666.html";
+    }
+
+    function go_next_step(door) {
+        setTimeout(function (){
+            if(urlParams.has('doors')) {
+                urlParams.set("doors", urlParams.get('doors') + door);
+
+                if(urlParams.get('doors') + door === '123123') {
+                    window.location.href = "hidden_pagefinal.html";
+                }
+
+            } else {
+                urlParams.set("doors", door);
+            }
+            console.log(urlParams);
+            window.location.href = "hidden_page6666666.html?" + urlParams;
+        }, 1500)
+    }
+
+    let red_door = document.querySelector(".door_red");
+    red_door.addEventListener("click", toggleDoorRed);
+
+    function toggleDoorRed() {
+      red_door.classList.toggle("doorOpen");
+
+      go_next_step('1');
+    }
+
+    let blue_door = document.querySelector(".door_blue");
+    blue_door.addEventListener("click", toggleDoorBlue);
+
+    function toggleDoorBlue() {
+      blue_door.classList.toggle("doorOpen");
+      go_next_step('2');
+    }
+
+    let green_door = document.querySelector(".door_green");
+    green_door.addEventListener("click", toggleDoorGreen);
+
+    function toggleDoorGreen() {
+      green_door.classList.toggle("doorOpen");
+      go_next_step('3');
     }
 </script>
 </body>
