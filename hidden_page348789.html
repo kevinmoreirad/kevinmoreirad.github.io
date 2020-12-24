@@ -41,7 +41,6 @@
 </head>
 
 <body style="background-color: #211e1e; color: #149414">
-<div class="topbar animated fadeInLeftBig"></div>
 
 <!-- Header Starts -->
 <div class="navbar-wrapper">
@@ -51,7 +50,7 @@
           <div class="container">
             <div class="navbar-header">
               <!-- Logo Starts -->
-              <a class="navbar-brand" href="#works"><img src="images/logo_hack.jpg" height="100" alt="logo"></a>
+              <a class="navbar-brand" href="#works" onclick="alert('C K M')"><img src="images/logo_hack.jpg" height="100" alt="logo"></a>
               <!-- #Logo Ends -->
 
 
@@ -73,35 +72,15 @@
 <div id="about"  class="container spacer about">
 <h2 class="text-center wowload fadeInUp">Photographie du monde</h2>
   <div class="row">
-  <div class="col-sm-6 wowload fadeInLeft">
-    <h4><i class="fa fa-paint-brush"></i> Design et retouches</h4>
-    <p>
-        Un angle de vue fait plus que la photo elle même. La retouche et le design sont au coeur de mon métier.
-    </p>
-    
-
-  </div>
-  <div class="col-sm-6 wowload fadeInRight">
-  <h4><i class="fa fa-camera-retro"></i> Photographie avant tout</h4>
-  <p>
-    De la photographie rétro, en passant par celle numérique, chaque photographie raconte une histoire. Je saurais raconter votre histoire, capter LE moment.
-  </p>
-  </div>
+      <h2>Comme coule le Nil sur le Caire au pied des mystèrieuses pyramides, <br>
+      De l'eau ruisselle sur le mysètre, dans cet appartement</h2>
+      <div></div>
   </div>
 </div>
 <!-- #Cirlce Ends -->
 
 <!--Contact Starts-->
-<div id="contact" class="spacer" style="background-color: #2b5329">
-    <div class="container contactform center">
-    <h2 class="text-center  wowload fadeInUp">Quel est la réponse?</h2>
-      <div class="row wowload fadeInLeftBig">
-          <div class="col-sm-6 col-sm-offset-3 col-xs-12">
-            <input type="text" placeholder="Nom" id="name_message" style="background-color: #020c02; color: #00FF00; border-color: #062806">
-            <button class="btn btn-primary" onclick="show_hidden_popup()" style="background-color: #211e1e; color: #9ccc9c"><i class="fa fa-paper-plane"></i> Essayer</button>
-          </div>
-      </div>
-    </div>
+<div id="contact" class="spacer" style="background-color: #2b5329; height: 300px">
 </div>
 
 <!-- Modal -->
@@ -137,7 +116,7 @@
     <a href="https://www.instagram.com/ramuz_photography/">
         <i class="fa fa-instagram fa-2x"></i>
     </a>
-    <a href="#"><i class="fa fa-twitter fa-2x"></i></a>
+    <a href="hidden_page433389.html"><i class="fa fa-twitter fa-2x"></i></a>
     <a href="#"><i class="fa fa-flickr fa-2x"></i></a>
 </p>
 Copyright 2015 Ramuz Secret Files. All rights reserved.
@@ -170,5 +149,17 @@ Copyright 2015 Ramuz Secret Files. All rights reserved.
 
 <script src="assets/js/popper.min.js"></script>
 <script src="assets/js/lunar.js"></script>
+
+<script>
+    function check_response() {
+
+        let name = document.getElementById("name_message").value.toLowerCase();
+        if(name === "nil") {
+            window.location.href = "hidden_page1266899.html";
+        } else {
+            alert("Ce n'est pas la bonne réponse");
+        }
+    }
+</script>
 </body>
 </html>
