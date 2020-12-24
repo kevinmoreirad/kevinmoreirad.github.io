@@ -251,17 +251,15 @@ Copyright 2015 Ramuz Secret Files. All rights reserved.
         setTimeout(function (){
             if(urlParams.has('doors')) {
                 urlParams.set("doors", urlParams.get('doors') + door);
-
-                if(urlParams.get('doors') + door === '123123') {
-                    window.location.href = "hidden_pagefinal.html";
-                }
-
             } else {
                 urlParams.set("doors", door);
             }
-            console.log(urlParams);
-            window.location.href = "hidden_page6666666.html?" + urlParams;
-        }, 1500)
+            if(urlParams.get('doors') === '123123') {
+                window.location.href = "hidden_pagefinal.html";
+            } else {
+                window.location.href = "hidden_page6666666.html?" + urlParams;
+            }
+        }, 800)
     }
 
     let red_door = document.querySelector(".door_red");
